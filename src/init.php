@@ -53,6 +53,15 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 		null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 	);
 
+	// Register chart.js CDN
+	wp_register_script(
+		'chart-js-cdn', // Handle.
+		'https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.min.js', // source
+		array(), // Dependency to include the CSS after it.
+		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
+		true //in footer
+	);
+
 	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `cgbGlobal` object.
 	wp_localize_script(
 		'bar_chart-cgb-block-js',
@@ -82,6 +91,8 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 			'editor_script' => 'bar_chart-cgb-block-js',
 			// Enqueue blocks.editor.build.css in the editor only.
 			'editor_style'  => 'bar_chart-cgb-block-editor-css',
+			// Enqueue chart.js CDN
+			'script'		=> 'chart-js-cdn',
 		)
 	);
 }
