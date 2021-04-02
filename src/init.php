@@ -61,6 +61,15 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 		true //in footer
 	);
+	// Register bar-chart.js
+	wp_register_script(
+		'bar-chart', // Handle.
+		plugins_url( '/assets/js/bar-chart.js', dirname( __FILE__ ) ), // source
+		array('chart-js-cdn'), // Dependency to include the CSS after it.
+		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
+		true //in footer
+	);
+	
 
 	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `cgbGlobal` object.
 	wp_localize_script(
@@ -92,7 +101,7 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 			// Enqueue blocks.editor.build.css in the editor only.
 			'editor_style'  => 'bar_chart-cgb-block-editor-css',
 			// Enqueue chart.js CDN
-			'script'		=> 'chart-js-cdn',
+			'script'		=> 'bar-chart',
 		)
 	);
 }
