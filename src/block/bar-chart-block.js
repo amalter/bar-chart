@@ -46,7 +46,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 		// Creates a <p class='wp-block-cgb-block-bar-chart'></p>.
 		return (
 			<div className={ props.className }>
-				<p>Bar Chart Block</p>
+				<h2>Bar Chart Block</h2>
                 <InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 				/>

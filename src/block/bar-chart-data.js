@@ -6,6 +6,8 @@
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+import { TextControl } from '@wordpress/components';
+
 //const ALLOWED_BLOCKS = [ '' ];
 /**
  * Register: aa Gutenberg Block.
@@ -26,7 +28,15 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 	icon: 'screenoptions', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	parent: [ 'cgb/block-bar-chart' ],
     category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-	keywords: [
+	attributes: {
+        dataLabel:{
+            type: 'string',
+        },
+        dataNumber:{
+            type: 'number',
+        }
+    },
+    keywords: [
 		__( 'bar' ),
 		__( 'chart' ),
 		__( 'graph' ),
@@ -45,10 +55,35 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
+        const { 
+			attributes: { dataLabel,dataNumber }, 
+			setAttributes 
+		} = props;
+
+
 		// Creates a <p class='wp-block-cgb-block-bar-chart'></p>.
 		return (
 			<div className={ props.className }>
-				<p>Add Data</p>
+				<h3>Add Data Set</h3>
+                <div className="data-wrapper">
+                <div className="data-label">
+                    <TextControl
+                        label="Data Label"
+                        value={ dataLabel }
+                        onChange={ (newDataLabel) => { setAttributes({dataLabel: newDataLabel}); } }
+                        type="string"
+                    />
+                </div>
+                <div className="data-number">
+                    <TextControl
+                        label="Data Number"
+                        value={ dataNumber }
+                        onChange={ (newDataNumber) => { setAttributes({dataNumber: parseInt(newDataNumber)}); } }
+                        type="number"
+                    />
+                </div>
+                </div>
+                
 			</div>
 		);
 	},
@@ -65,9 +100,16 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+        const {
+            attributes: {dataLabel,dataNumber}
+        } = props;
 		return (
 			<div className={ props.className }>
-				<p>— Data frontend.</p>
+                <div className="data-wrapper">
+                <div className="data-label">{dataLabel}</div>
+                <div className="data-number">{dataNumber}</div>
+                </div>
+                
 			</div>
 		);
 	},
