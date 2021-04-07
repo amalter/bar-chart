@@ -65,25 +65,24 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 		return (
 			<div className={ props.className }>
 				<h3>Add Data Set</h3>
-                <div className="data-wrapper">
-                <div className="data-label">
-                    <TextControl
-                        label="Data Label"
-                        value={ dataLabel }
-                        onChange={ (newDataLabel) => { setAttributes({dataLabel: newDataLabel}); } }
-                        type="string"
-                    />
+                <div className="data">
+                    <div className="data-label">
+                        <TextControl
+                            label="Data Label"
+                            value={ dataLabel }
+                            onChange={ (newDataLabel) => { setAttributes({dataLabel: newDataLabel}); } }
+                            type="string"
+                        />
+                    </div>
+                    <div className="data-number">
+                        <TextControl
+                            label="Data Number"
+                            value={ dataNumber }
+                            onChange={ (newDataNumber) => { setAttributes({dataNumber: parseInt(newDataNumber)}); } }
+                            type="number"
+                        />
+                    </div>
                 </div>
-                <div className="data-number">
-                    <TextControl
-                        label="Data Number"
-                        value={ dataNumber }
-                        onChange={ (newDataNumber) => { setAttributes({dataNumber: parseInt(newDataNumber)}); } }
-                        type="number"
-                    />
-                </div>
-                </div>
-                
 			</div>
 		);
 	},
@@ -104,13 +103,10 @@ registerBlockType( 'cgb/block-bar-chart-data', {
             attributes: {dataLabel,dataNumber}
         } = props;
 		return (
-			<div className={ props.className }>
-                <div className="data-wrapper">
-                <div className="data-label">{dataLabel}</div>
-                <div className="data-number">{dataNumber}</div>
-                </div>
-                
-			</div>
+			<React.Fragment>  
+                <tr><th className="data-label">{dataLabel}</th></tr>
+                <tr><td className="data-number">{dataNumber}</td></tr>
+            </React.Fragment>
 		);
 	},
 } );

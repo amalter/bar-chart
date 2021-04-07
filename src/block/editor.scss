@@ -18,11 +18,23 @@
   }
   h3 {
     font-size: 18px !important;
+    margin:0 !important;
   }
   .wp-block-cgb-block-bar-chart-data{
     background: $light-gray;
-    p{
-      padding: 0 5px;
-    }
+    padding: 5px;
+    .data{   
+        display: flex;
+        justify-content: space-between;
+      &-label{
+        width: 65%;
+        min-width:100px;
+      }//label
+      &-number{
+        width: 30%;
+        min-width:100px;
+      }//label
+
+    }//data
   }//.wp-block-cgb-block-bar-chart-data
 }//.wp-block-cgb-block-bar-chart

@@ -66,12 +66,17 @@ registerBlockType( 'cgb/block-bar-chart', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+		console.log(InnerBlocks.Content);
+		console.log("InnerBlocks.Content");
 		return (
 			<div className={ props.className }>
 				<p>— Hello from the frontend.</p>
-				<div className={ props.className }>
-                    <InnerBlocks.Content />
-                </div>
+				<canvas className="bar-chart">
+				</canvas>
+					<table>
+						<InnerBlocks.Content />
+					</table>
+				
 			</div>
 		);
 	},
