@@ -33,6 +33,10 @@ registerBlockType( 'cgb/block-bar-chart', {
 		chartTitle:{
 			type: 'string'
 		},
+		showTitle:{
+			type: 'boolean',
+			default: false,
+		}
 	},
 	keywords: [
 		__( 'bar' ),
@@ -55,7 +59,8 @@ registerBlockType( 'cgb/block-bar-chart', {
 		const {
 			attributes: { 
 				blockID, 
-				chartTitle 
+				chartTitle,
+				showTitle 
 			},
 			setAttributes,
 			clientId
@@ -66,6 +71,24 @@ registerBlockType( 'cgb/block-bar-chart', {
 
 		return (
 			<div className={ props.className } id={blockID}>
+				{
+					<InspectorControls>
+						<Panel header="Slider Block Settings">
+						<PanelBody title="Display Settings">
+							<PanelRow>
+								<div className="chart_hide-title">
+									<CheckboxControl
+										label="Hide Chart Title"
+										help="Check to display the chart title"
+										checked={ showTitle }
+										onChange={ (newValue) => { setAttributes({showTitle: newValue}); } }
+									/>
+								</div>
+							</PanelRow>
+							</PanelBody>
+						</Panel>
+					</InspectorControls>
+				}
 				<h2>Bar Chart Block</h2>
 				<TextControl
 					label="Chart Title"
@@ -95,12 +118,19 @@ registerBlockType( 'cgb/block-bar-chart', {
 		const {
 			attributes: {  
 				blockID, 
-				chartTitle  
+				chartTitle,
+				showTitle  
 			}
 		} = props;
 
+		var displayTitle = chartTitle;
+		if (showTitle) {
+			displayTitle = '';
+		}
+
 		return (
 			<div className={ props.className } id={blockID}>
+				<h3>{displayTitle}</h3>
 				<canvas className="bar-chart">
 					<table>
 						<caption>{chartTitle}</caption>
