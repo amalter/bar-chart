@@ -72,11 +72,10 @@ registerBlockType( 'cgb/block-bar-chart', {
 			<div className={ props.className }>
 				<p>— Hello from the frontend.</p>
 				<canvas className="bar-chart">
-				</canvas>
 					<table>
 						<InnerBlocks.Content />
 					</table>
-				
+				</canvas>				
 			</div>
 		);
 	},
