@@ -3,7 +3,8 @@
  * Bar Chart Parent Block
  * 
  */
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
+import { TextControl, CheckboxControl, Panel, PanelBody, PanelRow } from '@wordpress/components';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const ALLOWED_BLOCKS = [ 'cgb/block-bar-chart-data' ];
@@ -29,6 +30,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 		blockID:{
 			type: 'string'
 		},
+		chartTitle:{
+			type: 'string'
+		},
 	},
 	keywords: [
 		__( 'bar' ),
@@ -49,7 +53,10 @@ registerBlockType( 'cgb/block-bar-chart', {
 	 */
 	edit: ( props ) => {
 		const {
-			attributes: { blockID },
+			attributes: { 
+				blockID, 
+				chartTitle 
+			},
 			setAttributes,
 			clientId
 		} = props;
@@ -60,6 +67,12 @@ registerBlockType( 'cgb/block-bar-chart', {
 		return (
 			<div className={ props.className } id={blockID}>
 				<h2>Bar Chart Block</h2>
+				<TextControl
+					label="Chart Title"
+					value={ chartTitle }
+					onChange={ (newChartTitle) => { setAttributes({chartTitle: newChartTitle}); } }
+					type="string"
+				/>
                 <InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 				/>
@@ -80,13 +93,17 @@ registerBlockType( 'cgb/block-bar-chart', {
 	 */
 	save: ( props ) => {
 		const {
-			attributes: { blockID }
+			attributes: {  
+				blockID, 
+				chartTitle  
+			}
 		} = props;
 
 		return (
 			<div className={ props.className } id={blockID}>
 				<canvas className="bar-chart">
 					<table>
+						<caption>{chartTitle}</caption>
 						<InnerBlocks.Content />
 					</table>
 				</canvas>				
