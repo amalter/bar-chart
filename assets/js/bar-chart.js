@@ -15,8 +15,12 @@
         //get label and values arrays
         let dataLabelsArray = Array.from(barChart.querySelectorAll( '.data-label' )).map(el => { return el.innerHTML });
         let dataValuesArray = Array.from(barChart.querySelectorAll( '.data-value' )).map(el => { return el.innerHTML });
-        const chartAxis = block.dataset.axis;
-        console.log(chartAxis);
+        //data attributes
+        const htmlDataAttributes = block.dataset;
+        const chartAxis = htmlDataAttributes.axis;
+        const barColor = htmlDataAttributes.barcolor;
+        const borderColor = htmlDataAttributes.bordercolor;
+        console.log(borderColor);
         var ctx = barChart;
         var chartOptions = {
                 indexAxis: chartAxis,
@@ -30,7 +34,10 @@
                 labels: dataLabelsArray,
                 datasets: [{
                     label: '# of Votes',
-                    data: dataValuesArray
+                    data: dataValuesArray,
+                    backgroundColor: barColor,
+                    borderColor: borderColor,
+                    borderWidth: 1
                 }]
             };
         var newChart = new Chart(ctx, {

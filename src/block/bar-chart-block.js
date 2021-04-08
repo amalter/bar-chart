@@ -4,7 +4,7 @@
  * 
  */
 import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
-import { TextControl, CheckboxControl, Panel, PanelBody, PanelRow } from '@wordpress/components';
+import { TextControl, CheckboxControl, Panel, PanelBody, PanelRow, ColorPalette } from '@wordpress/components';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const ALLOWED_BLOCKS = [ 'cgb/block-bar-chart-data' ];
@@ -40,6 +40,12 @@ registerBlockType( 'cgb/block-bar-chart', {
 		indexAxis:{
 			type: 'boolean',
 			default: false,
+		},
+		barColor:{
+			type: 'string'
+		},
+		borderColor:{
+			type: 'string'
 		}
 	},
 	keywords: [
@@ -65,7 +71,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 				blockID, 
 				chartTitle,
 				showTitle,
-				indexAxis
+				indexAxis,
+				barColor,
+				borderColor
 			},
 			setAttributes,
 			clientId
@@ -73,6 +81,16 @@ registerBlockType( 'cgb/block-bar-chart', {
 		if ( ! blockID ) {
 			setAttributes( { blockID: clientId } );
 		}
+
+		const colors = [
+			{ name: 'gold', color: '#f4c875' },
+			{ name: 'orange', color: '#f2ad79' },
+			{ name: 'dark orange', color: '#ea705b' },
+			{ name: 'blue', color: '#768ec5' },
+			{ name: 'dark blue', color: '#2855af' },
+			{ name: 'gray', color: '#bababa' },
+			{ name: 'dark gray', color: '#3d4045' },
+		];
 
 		return (
 			<div className={ props.className } id={blockID}>
@@ -97,6 +115,29 @@ registerBlockType( 'cgb/block-bar-chart', {
 											help="Check to display the chart horizontally"
 											checked={ indexAxis }
 											onChange={ (newValue) => { setAttributes({indexAxis: newValue}); } }
+										/>
+									</div>
+								</PanelRow>
+								
+							</PanelBody>
+							<PanelBody title="Chart Colors">
+								<PanelRow>
+									<div className="background_color">
+										Bar color
+										<ColorPalette
+											colors= {colors}
+											value= {barColor}
+											onChange={ ( newColor ) => { setAttributes({barColor: newColor}); } }
+										/>
+									</div>
+								</PanelRow>
+								<PanelRow>
+									<div className="border_color">
+										Bar border color
+										<ColorPalette
+											colors= {colors}
+											value= {borderColor}
+											onChange={ ( newColor ) => { setAttributes({borderColor: newColor}); } }
 										/>
 									</div>
 								</PanelRow>
@@ -135,7 +176,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 				blockID, 
 				chartTitle,
 				showTitle,
-				indexAxis  
+				indexAxis,
+				barColor,
+				borderColor  
 			}
 		} = props;
 
@@ -150,7 +193,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 		}
 
 		return (
-			<div className={ props.className } id={blockID} data-axis={chartIndexAxis}>
+			<div className={ props.className } id={blockID} data-axis={chartIndexAxis} data-barColor={barColor} data-borderColor={borderColor}>
 				<h3>{displayTitle}</h3>
 				<canvas className="bar-chart">
 					<table>
