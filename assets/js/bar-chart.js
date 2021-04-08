@@ -12,14 +12,14 @@
 	barChartBlocks.forEach( function( block ) {
         //get canvas element
         let barChart =  block.querySelector( '.bar-chart' );
-
         //get label and values arrays
         let dataLabelsArray = Array.from(barChart.querySelectorAll( '.data-label' )).map(el => { return el.innerHTML });
         let dataValuesArray = Array.from(barChart.querySelectorAll( '.data-value' )).map(el => { return el.innerHTML });
-      
+        const chartAxis = block.dataset.axis;
+        console.log(chartAxis);
         var ctx = barChart;
         var chartOptions = {
-                indexAxis: 'x',
+                indexAxis: chartAxis,
                 scales: {
                     y: {
                         beginAtZero: true

@@ -36,6 +36,10 @@ registerBlockType( 'cgb/block-bar-chart', {
 		showTitle:{
 			type: 'boolean',
 			default: false,
+		},
+		indexAxis:{
+			type: 'boolean',
+			default: false,
 		}
 	},
 	keywords: [
@@ -60,7 +64,8 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: { 
 				blockID, 
 				chartTitle,
-				showTitle 
+				showTitle,
+				indexAxis
 			},
 			setAttributes,
 			clientId
@@ -73,18 +78,28 @@ registerBlockType( 'cgb/block-bar-chart', {
 			<div className={ props.className } id={blockID}>
 				{
 					<InspectorControls>
-						<Panel header="Slider Block Settings">
-						<PanelBody title="Display Settings">
-							<PanelRow>
-								<div className="chart_hide-title">
-									<CheckboxControl
-										label="Hide Chart Title"
-										help="Check to display the chart title"
-										checked={ showTitle }
-										onChange={ (newValue) => { setAttributes({showTitle: newValue}); } }
-									/>
-								</div>
-							</PanelRow>
+						<Panel header="Chart Block Settings">
+							<PanelBody title="Display Settings">
+								<PanelRow>
+									<div className="chart_hide-title">
+										<CheckboxControl
+											label="Hide Chart Title"
+											help="Check to display the chart title"
+											checked={ showTitle }
+											onChange={ (newValue) => { setAttributes({showTitle: newValue}); } }
+										/>
+									</div>
+								</PanelRow>
+								<PanelRow>
+									<div className="chart_axis">
+										<CheckboxControl
+											label="Horizontal Chart"
+											help="Check to display the chart horizontally"
+											checked={ indexAxis }
+											onChange={ (newValue) => { setAttributes({indexAxis: newValue}); } }
+										/>
+									</div>
+								</PanelRow>
 							</PanelBody>
 						</Panel>
 					</InspectorControls>
@@ -119,7 +134,8 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: {  
 				blockID, 
 				chartTitle,
-				showTitle  
+				showTitle,
+				indexAxis  
 			}
 		} = props;
 
@@ -128,8 +144,13 @@ registerBlockType( 'cgb/block-bar-chart', {
 			displayTitle = '';
 		}
 
+		var chartIndexAxis = 'x';
+		if (indexAxis) {
+			chartIndexAxis = 'y';
+		}
+
 		return (
-			<div className={ props.className } id={blockID}>
+			<div className={ props.className } id={blockID} data-axis={chartIndexAxis}>
 				<h3>{displayTitle}</h3>
 				<canvas className="bar-chart">
 					<table>
