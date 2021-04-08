@@ -25,6 +25,11 @@ registerBlockType( 'cgb/block-bar-chart', {
 	title: __( 'bar-chart' ), // Block title.
 	icon: 'chart-bar', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	attributes: {
+		blockID:{
+			type: 'string'
+		},
+	},
 	keywords: [
 		__( 'bar' ),
 		__( 'chart' ),
@@ -43,7 +48,15 @@ registerBlockType( 'cgb/block-bar-chart', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-bar-chart'></p>.
+		const {
+			attributes: { blockID },
+			setAttributes,
+			clientId
+		} = props;
+		if ( ! blockID ) {
+			setAttributes( { blockID: clientId } );
+		}
+
 		return (
 			<div className={ props.className }>
 				<h2>Bar Chart Block</h2>
@@ -66,10 +79,12 @@ registerBlockType( 'cgb/block-bar-chart', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
-		console.log(InnerBlocks.Content);
-		console.log("InnerBlocks.Content");
+		const {
+			attributes: { blockID }
+		} = props;
+
 		return (
-			<div className={ props.className }>
+			<div className={ props.className } id={blockID}>
 				<p>— Hello from the frontend.</p>
 				<canvas className="bar-chart">
 					<table>
