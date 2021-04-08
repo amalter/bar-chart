@@ -32,7 +32,7 @@ registerBlockType( 'cgb/block-bar-chart-data', {
         dataLabel:{
             type: 'string',
         },
-        dataNumber:{
+        dataValue:{
             type: 'number',
         }
     },
@@ -56,7 +56,7 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 	 */
 	edit: ( props ) => {
         const { 
-			attributes: { dataLabel,dataNumber }, 
+			attributes: { dataLabel,dataValue }, 
 			setAttributes 
 		} = props;
 
@@ -74,11 +74,11 @@ registerBlockType( 'cgb/block-bar-chart-data', {
                             type="string"
                         />
                     </div>
-                    <div className="data-number">
+                    <div className="data-value">
                         <TextControl
-                            label="Data Number"
-                            value={ dataNumber }
-                            onChange={ (newDataNumber) => { setAttributes({dataNumber: parseInt(newDataNumber)}); } }
+                            label="Data Value"
+                            value={ dataValue }
+                            onChange={ (newDataValue) => { setAttributes({dataValue: parseInt(newDataValue)}); } }
                             type="number"
                         />
                     </div>
@@ -100,12 +100,12 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 	 */
 	save: ( props ) => {
         const {
-            attributes: {dataLabel,dataNumber}
+            attributes: {dataLabel,dataValue}
         } = props;
 		return (
 			<React.Fragment>  
                 <tr><th className="data-label">{dataLabel}</th></tr>
-                <tr><td className="data-number">{dataNumber}</td></tr>
+                <tr><td className="data-value">{dataValue}</td></tr>
             </React.Fragment>
 		);
 	},
