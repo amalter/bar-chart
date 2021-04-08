@@ -58,7 +58,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 		}
 
 		return (
-			<div className={ props.className }>
+			<div className={ props.className } id={blockID}>
 				<h2>Bar Chart Block</h2>
                 <InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
@@ -85,7 +85,6 @@ registerBlockType( 'cgb/block-bar-chart', {
 
 		return (
 			<div className={ props.className } id={blockID}>
-				<p>— Hello from the frontend.</p>
 				<canvas className="bar-chart">
 					<table>
 						<InnerBlocks.Content />
