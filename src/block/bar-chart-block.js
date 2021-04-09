@@ -33,6 +33,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 		chartTitle:{
 			type: 'string'
 		},
+		chartLabel:{
+			type: 'string'
+		},
 		showTitle:{
 			type: 'boolean',
 			default: false,
@@ -45,6 +48,12 @@ registerBlockType( 'cgb/block-bar-chart', {
 			type: 'string'
 		},
 		borderColor:{
+			type: 'string'
+		},
+		prefix:{
+			type: 'string'
+		},
+		suffix:{
 			type: 'string'
 		}
 	},
@@ -70,10 +79,13 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: { 
 				blockID, 
 				chartTitle,
+				chartLabel,
 				showTitle,
 				indexAxis,
 				barColor,
-				borderColor
+				borderColor,
+				prefix,
+				suffix
 			},
 			setAttributes,
 			clientId
@@ -118,8 +130,27 @@ registerBlockType( 'cgb/block-bar-chart', {
 										/>
 									</div>
 								</PanelRow>
-								
 							</PanelBody>
+							<PanelBody title="Tick affixes">
+								<PanelRow>
+								<div className="prefix">
+									<TextControl
+										label="Prefix"
+										value={ prefix }
+										onChange={ (newPrefix) => { setAttributes({prefix: newPrefix}); } }
+										type="string"
+									/>
+								</div>
+								</PanelRow>
+								<div className="suffix">
+									<TextControl
+										label="Suffix"
+										value={ suffix }
+										onChange={ (newSuffix) => { setAttributes({suffix: newSuffix}); } }
+										type="string"
+									/>
+								</div>
+							</PanelBody>{/* Affixes */}
 							<PanelBody title="Chart Colors">
 								<PanelRow>
 									<div className="background_color">
@@ -141,7 +172,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 										/>
 									</div>
 								</PanelRow>
-							</PanelBody>
+							</PanelBody> {/* ColorPalette */}
 						</Panel>
 					</InspectorControls>
 				}
@@ -150,6 +181,12 @@ registerBlockType( 'cgb/block-bar-chart', {
 					label="Chart Title"
 					value={ chartTitle }
 					onChange={ (newChartTitle) => { setAttributes({chartTitle: newChartTitle}); } }
+					type="string"
+				/>
+				<TextControl
+					label="Chart Label"
+					value={ chartLabel }
+					onChange={ (newChartLabel) => { setAttributes({chartLabel: newChartLabel}); } }
 					type="string"
 				/>
                 <InnerBlocks
@@ -175,10 +212,13 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: {  
 				blockID, 
 				chartTitle,
+				chartLabel,
 				showTitle,
 				indexAxis,
 				barColor,
-				borderColor  
+				borderColor,
+				prefix,
+				suffix  
 			}
 		} = props;
 
@@ -192,8 +232,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 			chartIndexAxis = 'y';
 		}
 
+
 		return (
-			<div className={ props.className } id={blockID} data-axis={chartIndexAxis} data-barColor={barColor} data-borderColor={borderColor}>
+			<div className={ props.className } id={blockID} data-label={chartLabel} data-axis={chartIndexAxis} data-barColor={barColor} data-borderColor={borderColor} data-prefix={prefix} data-suffix={suffix}>
 				<h3>{displayTitle}</h3>
 				<canvas className="bar-chart">
 					<table>
