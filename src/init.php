@@ -57,19 +57,29 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 		// Register chart.js CDN
 		wp_register_script(
 			'chart-js-cdn', // Handle.
-			'https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.min.js', // source
+			'https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js', // source
 			array(), // Dependency to include the CSS after it.
 			null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
-			true //in footer
+			false //in footer
+		);
+
+		// Register chart.js Deferred Plugin CDN
+		wp_register_script(
+			'chartjs-plugin-deferred', // Handle.
+			'https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2', // source
+			array('chart-js-cdn'), // Dependency to include the CSS after it.
+			null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
+			false //in footer
 		);
 		// Register bar-chart.js
 		wp_register_script(
 			'bar-chart', // Handle.
 			plugins_url( '/assets/js/bar-chart.js', dirname( __FILE__ ) ), // source
-			array('chart-js-cdn'), // Dependency to include the CSS after it.
+			array('chart-js-cdn','chartjs-plugin-deferred'), // Dependency to include the CSS after it.
 			null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 			true //in footer
 		);
+		
 	}//if frontend
 
 	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `cgbGlobal` object.
@@ -102,6 +112,8 @@ function bar_chart_cgb_block_assets() { // phpcs:ignore
 			// Enqueue blocks.editor.build.css in the editor only.
 			'editor_style'  => 'bar_chart-cgb-block-editor-css',
 			// Enqueue chart.js CDN
+			'script'		=> 'chart-js-cdn',
+			'script'		=> 'chartjs-plugin-deferred',
 			'script'		=> 'bar-chart',
 		)
 	);

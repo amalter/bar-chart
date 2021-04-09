@@ -13,6 +13,7 @@
      */
         //get canvas element
         const barChart =  block.querySelector( '.bar-chart' );
+        var ctx = barChart;
         //get label and values arrays
         const dataLabelsArray = Array.from(barChart.querySelectorAll( '.data-label' )).map(el => { return el.innerHTML });
         const dataValuesArray = Array.from(barChart.querySelectorAll( '.data-value' )).map(el => { return el.innerHTML });
@@ -73,10 +74,17 @@
                 }//ticks
             },//x
         };//xScales
+        //plugin deferred
+        var deferred ={
+            xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
+            yOffset: '50%', // defer until 50% of the canvas height are inside the viewport
+            delay: 500      // delay of 500 ms after the canvas is considered inside the viewport
+        };
         //opttions object
         const chartOptions = {
                 indexAxis: chartAxis,
                 scales: scales(),
+                plugins: [deferred],//plugins 
             };
         //data object
         const chartData = {
@@ -92,7 +100,7 @@
     /**
      * Build a new chart
      */
-        const newChart = new Chart(barChart, {
+        const chart = new Chart(ctx, {
             type: 'bar',
             data: chartData,
             options: chartOptions
