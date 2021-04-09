@@ -33,7 +33,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 		chartTitle:{
 			type: 'string'
 		},
-		chartLabel:{
+		chartKey:{
 			type: 'string'
 		},
 		showTitle:{
@@ -79,7 +79,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: { 
 				blockID, 
 				chartTitle,
-				chartLabel,
+				chartKey,
 				showTitle,
 				indexAxis,
 				barColor,
@@ -90,6 +90,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 			setAttributes,
 			clientId
 		} = props;
+		
 		if ( ! blockID ) {
 			setAttributes( { blockID: clientId } );
 		}
@@ -184,9 +185,9 @@ registerBlockType( 'cgb/block-bar-chart', {
 					type="string"
 				/>
 				<TextControl
-					label="Chart Label"
-					value={ chartLabel }
-					onChange={ (newChartLabel) => { setAttributes({chartLabel: newChartLabel}); } }
+					label="Chart Key Label"
+					value={ chartKey }
+					onChange={ (newChartKey) => { setAttributes({chartKey: newChartKey}); } }
 					type="string"
 				/>
                 <InnerBlocks
@@ -212,7 +213,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 			attributes: {  
 				blockID, 
 				chartTitle,
-				chartLabel,
+				chartKey,
 				showTitle,
 				indexAxis,
 				barColor,
@@ -232,9 +233,8 @@ registerBlockType( 'cgb/block-bar-chart', {
 			chartIndexAxis = 'y';
 		}
 
-
 		return (
-			<div className={ props.className } id={blockID} data-label={chartLabel} data-axis={chartIndexAxis} data-barColor={barColor} data-borderColor={borderColor} data-prefix={prefix} data-suffix={suffix}>
+			<div className={ props.className } id={blockID} data-key={chartKey} data-axis={chartIndexAxis} data-barColor={barColor} data-borderColor={borderColor} data-prefix={prefix} data-suffix={suffix}>
 				<h3>{displayTitle}</h3>
 				<canvas className="bar-chart">
 					<table>

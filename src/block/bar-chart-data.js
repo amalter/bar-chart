@@ -60,8 +60,6 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 			setAttributes 
 		} = props;
 
-
-		// Creates a <p class='wp-block-cgb-block-bar-chart'></p>.
 		return (
 			<div className={ props.className }>
 				<h3>Add Data Set</h3>
