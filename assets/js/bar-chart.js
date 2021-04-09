@@ -4,8 +4,9 @@
  * Documentation: https://www.chartjs.org/docs/latest/
  */
  window.onload = function() {
+    //get all bar charts on page
     const barChartBlocks= document.querySelectorAll('.wp-block-cgb-block-bar-chart');
-    
+    //loop through all bar charts
 	barChartBlocks.forEach( function( block ) {
     /**
      * Variables

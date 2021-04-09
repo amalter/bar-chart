@@ -190,6 +190,7 @@ registerBlockType( 'cgb/block-bar-chart', {
 					onChange={ (newChartKey) => { setAttributes({chartKey: newChartKey}); } }
 					type="string"
 				/>
+				<h3>Add Data Sets:</h3>
                 <InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 				/>

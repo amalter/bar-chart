@@ -62,7 +62,6 @@ registerBlockType( 'cgb/block-bar-chart-data', {
 
 		return (
 			<div className={ props.className }>
-				<h3>Add Data Set</h3>
                 <div className="data">
                     <div className="data-label">
                         <TextControl

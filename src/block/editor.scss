@@ -4,6 +4,14 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
+//child styles
+ .block-editor-inner-blocks{
+  .block-editor-block-list__layout{
+    .block-editor-block-list__block{
+      margin:0;
+    }
+  }
+ }
 
 .wp-block-cgb-block-bar-chart  {
   background: $white;
@@ -18,7 +26,7 @@
   }
   h3 {
     font-size: 18px !important;
-    margin:0 !important;
+    margin:0 0 5px 0 !important;
   }
   .wp-block-cgb-block-bar-chart-data{
     background: $light-gray;
